@@ -1,0 +1,27 @@
+name: Deploy documentation
+
+on:
+  push:
+    branches: [ "main" ]
+
+env:
+  MDBOOK_ARCHIVE: https://github.com/rust-lang/mdBook/releases/download/v0.4.35/mdbook-v0.4.35-x86_64-unknown-linux-gnu.tar.gz
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Download mdbook
+      run: |
+        wget -O mdbook.tar.gz $MDBOOK_ARCHIVE
+        tar -xf mdbook.tar.gz -C /usr/local/bin
+
+    - name: Build documentation
+      run: mdbook build
+
+    - name: Deploy to GitHub Pages
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        folder: book

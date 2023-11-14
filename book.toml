@@ -1,0 +1,6 @@
+[book]
+authors = ["Valentin B."]
+language = "en"
+multilingual = false
+src = "src"
+title = "wizbattle"
